@@ -9,5 +9,30 @@
         android:id="@+id/homePageFragment"
         android:name="com.example.addremoveviewmodel.add_remove.fragment.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_updateDeleteFragment"
+            app:destination="@id/updateDeleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.addremoveviewmodel.add_remove.fragment.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateDeleteFragment"
+        android:name="com.example.addremoveviewmodel.add_remove.fragment.UpdateDeleteFragment"
+        android:label="fragment_update_delete"
+        tools:layout="@layout/fragment_update_delete" >
+        <action
+            android:id="@+id/action_updateDeleteFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
 </navigation>

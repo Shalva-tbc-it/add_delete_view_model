@@ -21,6 +21,9 @@ class ItemRecyclerAdapter : ListAdapter<Item, ItemRecyclerAdapter.ItemViewHolder
     }
 
 }) {
+
+    private var onItemClickListener: ((Item) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
             RecyclerItemBinding.inflate(
@@ -33,15 +36,19 @@ class ItemRecyclerAdapter : ListAdapter<Item, ItemRecyclerAdapter.ItemViewHolder
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind()
+        holder.itemUpdateDelete()
     }
 
+    fun setOnItemClickListener(listener: (Item) -> Unit) {
+        onItemClickListener = listener
+    }
 
     inner class ItemViewHolder(private val binding: RecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+
         fun bind() = with(binding) {
             val item = currentList[adapterPosition]
-
             Picasso.get()
                 .load(item.image)
                 .placeholder(R.drawable.ic_launcher_background)
@@ -49,6 +56,17 @@ class ItemRecyclerAdapter : ListAdapter<Item, ItemRecyclerAdapter.ItemViewHolder
                 .into(imgPicture)
 
             tvTitle.text = item.title
+
+
+        }
+
+        fun itemUpdateDelete() {
+            val item = currentList[adapterPosition]
+            binding.root.setOnClickListener {
+                onItemClickListener?.let {
+                    it.invoke(item)
+                }
+            }
         }
     }
 }

@@ -7,15 +7,40 @@ import kotlinx.coroutines.flow.StateFlow
 
 class AddRemoveFragmentViewModel : ViewModel() {
 
-    private val _dataList = MutableStateFlow<List<Item>>(emptyList())
+    private val _dataList = MutableStateFlow<ArrayList<Item>>(
+        arrayListOf(
+            Item(
+                title = "Yancy",
+                image = "Error"
+            ),
+            Item(
+                title = "trer",
+                image = "Error"
+            )
+        )
+    )
     val dataList: StateFlow<List<Item>> get() = _dataList
 
-    fun addItem(item: Item) {
-        _dataList.value += item
+    var editDelete: Item? = null
+
+    fun setData(item: Item) {
+        editDelete = item
+
     }
 
-    fun removeItem(item: Item) {
-        _dataList.value -= item
+    fun addItem(item: Item) {
+        _dataList.value.add(item)
     }
+
+    fun update(item: Item) {
+        _dataList.value.remove(editDelete)
+        _dataList.value.add(item)
+    }
+
+
+    fun removeItem() {
+        _dataList.value.remove(editDelete)
+    }
+
 
 }
